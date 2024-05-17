@@ -1,9 +1,10 @@
 from django.contrib.auth import get_user_model, login, logout
-from rest_framework.authentication import SessionAuthentication
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import UserSerializer, UserLoginSerializer, UserRegisterSerializer
 from rest_framework import permissions, status
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 
 # TODO: Add custom validation for username, email, password
@@ -23,7 +24,7 @@ class UserRegister(APIView):
 
 class UserLogin(APIView):
     permission_classes = (permissions.AllowAny,)
-    authentication_classes = (SessionAuthentication,)
+    authentication_classes = (JWTAuthentication,)
 
     @staticmethod
     def post(request):
@@ -31,23 +32,29 @@ class UserLogin(APIView):
         serializer = UserLoginSerializer(data=data)
         if serializer.is_valid(raise_exception=True):
             user = serializer.check_user(data)
-            login(request, user)
+            if user:
+                refresh = RefreshToken.for_user(user)
+                return Response({
+                    'refresh': str(refresh),
+                    'access': str(refresh.access_token)
+                }, status=status.HTTP_200_OK)
             return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class UserLogout(APIView):
     @staticmethod
-    def post(request):
-        logout(request)
-        return Response(status=status.HTTP_200_OK)
+    def get(request):
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class UserView(APIView):
     permission_classes = (permissions.IsAuthenticated, )
-    authentication_classes = (SessionAuthentication, )
+    authentication_classes = (JWTAuthentication,)
 
     @staticmethod
     def get(request):
-        serializer = UserSerializer(request.user)
+        data = request.user
+        print(data)
+        serializer = UserSerializer(instance=data)
         return Response({'user': serializer.data}, status=status.HTTP_200_OK)
 
