@@ -3,34 +3,86 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication  # type: ignore
 from .models import Post
 from .serializers import PostSerializer
+from .utils import ask
+from asgiref.sync import async_to_sync
 
-class PostViewSet(viewsets.ModelViewSet):
-    queryset = Post.objects.all()
+
+class ListPostView(viewsets.ViewSet):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     authentication_classes = (JWTAuthentication,)
 
-    @staticmethod
-    def list(request):
+    def list(self, request):
         queryset = Post.objects.all()
         serializer = PostSerializer(queryset, many=True)
         return Response(serializer.data)
 
-    def create(self, request, *args, **kwargs):
-            data = request.data
-            user = request.user
-            data.update({'author': user.id})
-            serializer = PostSerializer(data=data)
-            if serializer.is_valid():
-                serializer.save(author=user)
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class AskAIViewSet(viewsets.ModelViewSet):
-    queryset = Post.objects.all()
+class RetrievePostView(viewsets.ViewSet):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     authentication_classes = (JWTAuthentication,)
 
-    def create(self, request, *args, **kwargs):
+    def retrieve(self, request, pk=None):
+        try:
+            post = Post.objects.get(pk=pk)
+            serializer = PostSerializer(post)
+            return Response(serializer.data)
+        except Post.DoesNotExist:
+            return Response({"status": "post does not exist"}, status=status.HTTP_404_NOT_FOUND)
+
+
+class CreatePostView(viewsets.ViewSet):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    authentication_classes = (JWTAuthentication,)
+
+    def create(self, request):
         data = request.data
-        
-        return Response(status=status.HTTP_200_OK)
+        user = request.user
+        data.update({'author': user.id})
+        serializer = PostSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save(author=user)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UpdatePostView(viewsets.ViewSet):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    authentication_classes = (JWTAuthentication,)
+
+    def update(self, request, pk=None):
+        try:
+            post = Post.objects.get(pk=pk)
+            serializer = PostSerializer(post, data=request.data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Post.DoesNotExist:
+            return Response({"status": "post does not exist"}, status=status.HTTP_404_NOT_FOUND)
+
+
+class DeletePostView(viewsets.ViewSet):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    authentication_classes = (JWTAuthentication,)
+
+    def destroy(self, request, pk=None):
+        try:
+            post = Post.objects.get(pk=pk)
+            post.delete()
+            return Response({"status": "deleted"}, status=status.HTTP_200_OK)
+        except Post.DoesNotExist:
+            return Response({"status": "post does not exist"}, status=status.HTTP_404_NOT_FOUND)
+
+
+class AskAIView(viewsets.ViewSet):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    authentication_classes = (JWTAuthentication,)
+
+    def create(self, request):
+        data = request.data
+        prompt = {
+            "role": "user",
+            "content": f"Please respond only in English. Write an article about {data['question']}.",
+        }
+        response = async_to_sync(ask)(messages=[prompt])
+        return Response(response, status=status.HTTP_200_OK)
