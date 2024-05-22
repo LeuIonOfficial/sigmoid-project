@@ -24,3 +24,13 @@ class PostViewSet(viewsets.ModelViewSet):
                 serializer.save(author=user)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class AskAIViewSet(viewsets.ModelViewSet):
+    queryset = Post.objects.all()
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    authentication_classes = (JWTAuthentication,)
+
+    def create(self, request, *args, **kwargs):
+        data = request.data
+        
+        return Response(status=status.HTTP_200_OK)
