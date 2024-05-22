@@ -5,13 +5,13 @@ import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { AllPostsComponent } from "./components/AllPostsComponent.tsx";
 import { MainWrapper } from "./components/MainWrapper.tsx";
 import { user, userNavigation, navigation, classNames } from "./constants.ts";
-import axios from "axios";
+import $api from "../../requests/ConfigApi"
 
 export function LoggedInLayout() {
   const [activeLink, setActiveLink] = useState(navigation()[0].name);
 
   useEffect(() => {
-    axios.get("http://127.0.0.1:8000/api/posts", {
+    $api.get("blog/post", {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('blog_access_token')}`
       }
@@ -21,7 +21,7 @@ export function LoggedInLayout() {
   })
 
   const handleCreatePost = () => {
-    axios.post("http://127.0.0.1:8000/api/posts/", {"title": "title", "content": "content"},{
+    $api.post("blog/post", {"title": "title", "content": "content"},{
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('blog_access_token')}`
       }

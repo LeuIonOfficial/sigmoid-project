@@ -3,8 +3,8 @@ from rest_framework.routers import SimpleRouter
 from .views import PostViewSet
 
 router = SimpleRouter()
-router.register(r'posts', PostViewSet)
+router.register(r'post', PostViewSet)
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('post', PostViewSet.as_view({'get': 'list', 'post': 'create', 'put': 'update', 'delete': 'destroy'})),
 ]

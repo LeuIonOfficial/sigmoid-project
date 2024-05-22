@@ -1,6 +1,7 @@
 import axios from "axios";
+import $api from "../ConfigApi";
 
-const storageKeyAccessToken = "blog_access_token";
+export const storageKeyAccessToken = "blog_access_token";
 export class AuthApi {
   private accessToken: string;
 
@@ -9,7 +10,7 @@ export class AuthApi {
   }
 
   async login(data: Record<string, string>) {
-    const response = await axios.post("http://127.0.0.1:8000/api/login", {
+    const response = await axios.post("http://127.0.0.1:8000/api/user/login", {
       email: data.email,
       password: data.password,
     });
@@ -31,7 +32,7 @@ export class AuthApi {
   }
 
   async register(data: Record<string, string>) {
-    const response = await axios.post("http://127.0.0.1:8000/api/register", {
+    const response = await axios.post("http://127.0.0.1:8000/api/user/register", {
       email: data["email"],
       username: data["username"],
       password: data["password"],
@@ -51,9 +52,7 @@ export class AuthApi {
   }
 
   async getUser() {
-    const response = await axios.get("http://127.0.0.1:8000/api/me", {
-      headers: { Authorization: `Bearer ${this.accessToken}` },
-    });
+    const response = await $api.get("user/me");
 
     if (response.status === 200) {
       return {
@@ -68,9 +67,7 @@ export class AuthApi {
   }
 
   async logout() {
-    await axios.get("http://127.0.0.1:8000/api/logout", {
-      headers: { Authorization: `Bearer ${this.accessToken}` },
-    });
+    await $api.get("user/logout");
     this.accessToken = "";
     localStorage.removeItem(storageKeyAccessToken);
   }
