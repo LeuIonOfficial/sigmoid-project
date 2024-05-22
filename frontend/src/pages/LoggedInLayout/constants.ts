@@ -1,3 +1,7 @@
+import { AuthorsPage } from "./components/AuthorsPage";
+import { CreatePostPage } from "./components/CreatePostPage";
+import { PostPage } from "./components/PostPage";
+
 export const user = {
   name: "Tom Cook",
   email: "tom@example.com",
@@ -25,4 +29,10 @@ export const userNavigation = [
 
 export function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
+}
+
+export const pageMapper  = {
+  [pagesName.post]: PostPage,
+  [pagesName.authors]: AuthorsPage,
+  [pagesName.create_post]: CreatePostPage,
 }

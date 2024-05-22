@@ -1,4 +1,7 @@
+import { pageMapper } from "../constants";
+
 export const MainWrapper = ({ link }: { link: string }) => {
-  console.log(link);
-  return <div>Here we display main conent</div>;
+ const Content = pageMapper[link]
+  
+  return <Content />;
 };

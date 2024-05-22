@@ -1,38 +1,18 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import { Menu, Popover, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { AllPostsComponent } from "./components/AllPostsComponent.tsx";
 import { MainWrapper } from "./components/MainWrapper.tsx";
 import { user, userNavigation, navigation, classNames } from "./constants.ts";
-import $api from "../../requests/ConfigApi"
 
 export function LoggedInLayout() {
   const [activeLink, setActiveLink] = useState(navigation()[0].name);
 
-  useEffect(() => {
-    $api.get("blog/post", {
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem('blog_access_token')}`
-      }
-    }).then((response) => {
-      console.log(response.data);
-  });
-  })
-
-  const handleCreatePost = () => {
-    $api.post("blog/post", {"title": "title", "content": "content"},{
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem('blog_access_token')}`
-      }
-    }).then((response) => {
-      console.log(response.data);
-  });
-  }
-
   const handleNavigation = (link: string) => {
     setActiveLink(link);
   };
+
   return (
     <>
       <div className="min-h-full">
@@ -91,7 +71,7 @@ export function LoggedInLayout() {
                                   href={item.href}
                                   className={classNames(
                                     active ? "bg-gray-100" : "",
-                                    "block px-4 py-2 text-sm text-gray-700",
+                                    "block px-4 py-2 text-sm text-gray-700"
                                   )}
                                 >
                                   {item.name}
@@ -157,7 +137,7 @@ export function LoggedInLayout() {
                             key={item.name}
                             className={classNames(
                               item.current ? "text-white" : "text-indigo-100",
-                              "rounded-md bg-white bg-opacity-0 px-3 py-2 text-sm font-medium hover:bg-opacity-10 cursor-pointer",
+                              "rounded-md bg-white bg-opacity-0 px-3 py-2 text-sm font-medium hover:bg-opacity-10 cursor-pointer"
                             )}
                             aria-current={item.current ? "page" : undefined}
                             onClick={() => handleNavigation(item.name)}
@@ -325,7 +305,7 @@ export function LoggedInLayout() {
                     Section title
                   </h2>
                   <div className="overflow-hidden rounded-lg bg-white shadow">
-                    <div className="p-6">
+                    <div className="p-4">
                       {<MainWrapper link={activeLink} />}
                     </div>
                   </div>
@@ -339,14 +319,13 @@ export function LoggedInLayout() {
                     Section title
                   </h2>
                   <div className="overflow-hidden rounded-lg bg-white shadow">
-                    <div className="p-6">{<AllPostsComponent />}</div>
+                    <div className="p-4">{<AllPostsComponent />}</div>
                   </div>
                 </section>
               </div>
             </div>
           </div>
         </main>
-        <button type="button" onClick={() => handleCreatePost()}>Create post</button>
         {/*<footer>*/}
         {/*  <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">*/}
         {/*    <div className="border-t border-gray-200 py-8 text-center text-sm text-gray-500 sm:text-left">*/}
