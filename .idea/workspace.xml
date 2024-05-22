@@ -5,16 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bb0b0adb-9eee-4bf5-afb2-2cde11652bcf" name="Changes" comment="Add authentication with JWT (still in progress)">
-      <change afterPath="$PROJECT_DIR$/.idea/prettier.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/base/api/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/base/api/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/base/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/base/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/user_api/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/user_api/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/user_api/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/user_api/serializers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/user_api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/user_api/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +102,7 @@
       <workItem from="1715798166943" duration="409000" />
       <workItem from="1715798583011" duration="82000" />
       <workItem from="1715798667464" duration="14222000" />
-      <workItem from="1715926946198" duration="14345000" />
+      <workItem from="1715926946198" duration="15162000" />
     </task>
     <task id="LOCAL-00001" summary="Add requirements.txt file">
       <option name="closed" value="true" />

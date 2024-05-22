@@ -25,6 +25,7 @@ def get_routes(request):
     routes = [
         '/api/token',
         '/api/token/refresh',
+        '/posts',
     ]
 
     return Response(routes)

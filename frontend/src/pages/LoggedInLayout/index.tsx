@@ -1,13 +1,34 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Menu, Popover, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { AllPostsComponent } from "./components/AllPostsComponent.tsx";
 import { MainWrapper } from "./components/MainWrapper.tsx";
 import { user, userNavigation, navigation, classNames } from "./constants.ts";
+import axios from "axios";
 
 export function LoggedInLayout() {
   const [activeLink, setActiveLink] = useState(navigation()[0].name);
+
+  useEffect(() => {
+    axios.get("http://127.0.0.1:8000/api/posts", {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('blog_access_token')}`
+      }
+    }).then((response) => {
+      console.log(response.data);
+  });
+  })
+
+  const handleCreatePost = () => {
+    axios.post("http://127.0.0.1:8000/api/posts/", {"title": "title", "content": "content"},{
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('blog_access_token')}`
+      }
+    }).then((response) => {
+      console.log(response.data);
+  });
+  }
 
   const handleNavigation = (link: string) => {
     setActiveLink(link);
@@ -325,6 +346,7 @@ export function LoggedInLayout() {
             </div>
           </div>
         </main>
+        <button type="button" onClick={() => handleCreatePost()}>Create post</button>
         {/*<footer>*/}
         {/*  <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">*/}
         {/*    <div className="border-t border-gray-200 py-8 text-center text-sm text-gray-500 sm:text-left">*/}

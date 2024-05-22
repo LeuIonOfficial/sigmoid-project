@@ -1,10 +1,9 @@
-from django.contrib.auth import get_user_model, login, logout
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import UserSerializer, UserLoginSerializer, UserRegisterSerializer
 from rest_framework import permissions, status
-from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework_simplejwt.tokens import RefreshToken # type: ignore
+from rest_framework_simplejwt.authentication import JWTAuthentication # type: ignore
 
 
 # TODO: Add custom validation for username, email, password
@@ -54,7 +53,6 @@ class UserView(APIView):
     @staticmethod
     def get(request):
         data = request.user
-        print(data)
         serializer = UserSerializer(instance=data)
         return Response({'user': serializer.data}, status=status.HTTP_200_OK)
 
