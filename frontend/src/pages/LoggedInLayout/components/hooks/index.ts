@@ -42,7 +42,7 @@ export const useCreatePost = () => {
         }
         return acc;
       },
-      {}
+      {},
     );
 
     createPost(updatedData);

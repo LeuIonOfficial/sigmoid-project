@@ -31,8 +31,8 @@ export function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export const pageMapper  = {
+export const pageMapper = {
   [pagesName.post]: PostPage,
   [pagesName.authors]: AuthorsPage,
   [pagesName.create_post]: CreatePostPage,
-}
+};

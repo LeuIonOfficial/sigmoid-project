@@ -2,11 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-
 html {
-    height: 100vh;
+  height: 100vh;
 }
 
 body {
-    height: 100vh;
+  height: 100vh;
 }

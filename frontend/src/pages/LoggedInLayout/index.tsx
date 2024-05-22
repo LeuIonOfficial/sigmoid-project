@@ -71,7 +71,7 @@ export function LoggedInLayout() {
                                   href={item.href}
                                   className={classNames(
                                     active ? "bg-gray-100" : "",
-                                    "block px-4 py-2 text-sm text-gray-700"
+                                    "block px-4 py-2 text-sm text-gray-700",
                                   )}
                                 >
                                   {item.name}
@@ -137,7 +137,7 @@ export function LoggedInLayout() {
                             key={item.name}
                             className={classNames(
                               item.current ? "text-white" : "text-indigo-100",
-                              "rounded-md bg-white bg-opacity-0 px-3 py-2 text-sm font-medium hover:bg-opacity-10 cursor-pointer"
+                              "rounded-md bg-white bg-opacity-0 px-3 py-2 text-sm font-medium hover:bg-opacity-10 cursor-pointer",
                             )}
                             aria-current={item.current ? "page" : undefined}
                             onClick={() => handleNavigation(item.name)}

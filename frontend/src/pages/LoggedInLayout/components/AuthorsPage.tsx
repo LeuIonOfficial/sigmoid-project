@@ -1,1 +1,3 @@
-export const AuthorsPage = () => {return <div>This is authors page</div>};
+export const AuthorsPage = () => {
+  return <div>This is authors page</div>;
+};

@@ -1,8 +1,8 @@
-import axios from 'axios';
-import {storageKeyAccessToken} from '../Authentication';
+import axios from "axios";
+import { storageKeyAccessToken } from "../Authentication";
 
 const $api = axios.create({
-  baseURL: 'http://127.0.0.1:8000/api',
+  baseURL: "http://127.0.0.1:8000/api",
 });
 
 $api.interceptors.request.use(
@@ -15,9 +15,8 @@ $api.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-  }
+  },
 );
-
 
 // Export the api instance
 export default $api;

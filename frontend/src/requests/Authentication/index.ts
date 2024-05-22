@@ -32,11 +32,14 @@ export class AuthApi {
   }
 
   async register(data: Record<string, string>) {
-    const response = await axios.post("http://127.0.0.1:8000/api/user/register", {
-      email: data["email"],
-      username: data["username"],
-      password: data["password"],
-    });
+    const response = await axios.post(
+      "http://127.0.0.1:8000/api/user/register",
+      {
+        email: data["email"],
+        username: data["username"],
+        password: data["password"],
+      },
+    );
 
     if (response.status === 201) {
       return {
