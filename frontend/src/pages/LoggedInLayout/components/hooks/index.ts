@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { Api } from "../../../../requests";
 import { FormEvent } from "react";
+import $api from "../../../../requests/ConfigApi";
 
 export const useGetPosts = () => {
   const query = () => Api.posts.getAllPosts();
@@ -31,6 +32,13 @@ export const useCreatePost = () => {
     },
   });
 
+  const handleAskAI = async () => {
+    const question = prompt("Write here the topic you want AI to write about:");
+    $api.post("blog/ai", { question });
+    console.log(question);
+    return;
+  }
+
   const handleSubmitForm = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -48,5 +56,5 @@ export const useCreatePost = () => {
     createPost(updatedData);
   };
 
-  return { handleSubmitForm };
+  return { handleSubmitForm, handleAskAI };
 };

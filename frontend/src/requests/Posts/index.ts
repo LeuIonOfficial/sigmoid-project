@@ -20,4 +20,9 @@ export class Posts {
     const response = await $api.put(`blog/post/${id}`, data);
     return response.data;
   }
+
+  async askAI(data: Record<string, string>) {
+    const response = await $api.post("blog/ai", data);
+    return response.data;
+  }
 }

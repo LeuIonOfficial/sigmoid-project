@@ -1,13 +1,14 @@
 import { useCreatePost } from "./hooks";
 
 export const CreatePostPage = () => {
-  const { handleSubmitForm } = useCreatePost();
+  const { handleSubmitForm, handleAskAI } = useCreatePost();
   return (
     <form onSubmit={handleSubmitForm}>
       <div className="space-y-5">
-        <h2 className="text-base font-semibold leading-7 text-gray-900">
-          Create Post
-        </h2>
+        <div className="text-base font-semibold leading-7 text-gray-900 flex justify-between">
+          <span>Create Post</span>
+          <button onClick={handleAskAI} className="flex w-[200px] justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" type="button">Ask AI</button>
+        </div>
         <p className="mt-1 text-sm leading-6 text-gray-600">
           This page is dedicated for creating a new post.
         </p>
