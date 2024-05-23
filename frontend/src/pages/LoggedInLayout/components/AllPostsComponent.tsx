@@ -1,9 +1,12 @@
-import { useDeletePost, useGetPosts } from "./hooks";
-import { TrashIcon } from "@heroicons/react/24/outline";
+import { pagesName } from "../constants";
+import { useGetPosts } from "./hooks";
 
-export const AllPostsComponent = () => {
-  const { posts, isLoading, isSuccess } = useGetPosts();
-  const { deletePost } = useDeletePost();
+export const AllPostsComponent = ({
+  handleNavigation,
+}: {
+  handleNavigation: (link: string) => void;
+}) => {
+  const { posts, isLoading, isSuccess, setSelectedPost } = useGetPosts();
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -24,17 +27,24 @@ export const AllPostsComponent = () => {
             <>
               <div
                 id={index.toString()}
-                className=" border-b border-gray-900/10 py-2"
+                className=" border-b border-gray-900/10 py-2 cursor-pointer"
+                onClick={() => {
+                  setSelectedPost(el.id);
+                  handleNavigation(pagesName.post);
+                }}
               >
                 <div className="flex justify-between items-center">
                   {" "}
                   <h2 className="font-medium">{el.title}</h2>{" "}
-                  <TrashIcon
-                    className="w-[24px] cursor-pointer"
-                    onClick={() => deletePost(el.id)}
-                  />
                 </div>
-                <p>{el.content}</p>
+                {el.content.length > 100 ? (
+                  <p>
+                    {el.content.slice(0, 100)}...{" "}
+                    <span className="font-semibold">Read more</span>
+                  </p>
+                ) : (
+                  <p>{el.content}</p>
+                )}
                 <span>Created by: {el.author}</span>
               </div>
             </>

@@ -1,15 +1,40 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { Api } from "../../../../requests";
-import { FormEvent, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
+import { SelectedPostContext } from "../../../../store";
+
+export const useGetPost = () => {
+  const { selectedPost, setSelectedPost } = useContext(SelectedPostContext);
+  const query = () => Api.posts.getPost(selectedPost);
+
+  const {
+    isLoading,
+    data: post,
+    isSuccess,
+  } = useQuery(["post", selectedPost], query, {
+    select: (response) => {
+      return response;
+    },
+    enabled: !!selectedPost,
+  });
+
+  return {
+    isLoading,
+    isSuccess,
+    post,
+    setSelectedPost,
+  };
+};
 
 export const useGetPosts = () => {
   const query = () => Api.posts.getAllPosts();
+  const { setSelectedPost } = useContext(SelectedPostContext);
 
   const {
     isLoading,
     data: posts,
     isSuccess,
-  } = useQuery(["psots"], query, {
+  } = useQuery(["posts"], query, {
     select: (response) => {
       return response;
     },
@@ -19,6 +44,7 @@ export const useGetPosts = () => {
     isLoading,
     isSuccess,
     posts,
+    setSelectedPost,
   };
 };
 
@@ -52,7 +78,6 @@ export const useCreatePost = () => {
     askAIQuery,
     {
       onSuccess: (response) => {
-        queryClient.invalidateQueries();
         setFormValues((prev) => ({
           ...prev,
           content: response,
