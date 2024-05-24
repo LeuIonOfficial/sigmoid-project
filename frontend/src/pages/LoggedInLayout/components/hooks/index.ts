@@ -26,24 +26,27 @@ export const useGetPost = () => {
   };
 };
 
-export const useGetPosts = () => {
-  const query = () => Api.posts.getAllPosts();
+export const useGetPosts = (searchParams: string) => {
+  const query = () => Api.posts.getAllPosts(searchParams);
   const { setSelectedPost } = useContext(SelectedPostContext);
 
   const {
     isLoading,
     data: posts,
     isSuccess,
-  } = useQuery(["posts"], query, {
+  } = useQuery(["posts", searchParams], query, {
     select: (response) => {
       return response;
     },
+    staleTime: 5000,
+    keepPreviousData: true,
   });
 
   return {
     isLoading,
     isSuccess,
     posts,
+    searchParams,
     setSelectedPost,
   };
 };

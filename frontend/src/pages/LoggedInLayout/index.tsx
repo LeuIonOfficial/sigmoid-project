@@ -10,6 +10,7 @@ import { SelectedPostContext } from "../../store/index.tsx";
 export function LoggedInLayout() {
   const [activeLink, setActiveLink] = useState(navigation()[0].name);
   const [selectedPost, setSelectedPost] = useState("");
+  const [searchParams, setSearchParams] = useState<string>("");
 
   const handleNavigation = (link: string) => {
     setActiveLink(link);
@@ -105,6 +106,10 @@ export function LoggedInLayout() {
                             className="block w-full rounded-md border-0 bg-white/20 py-1.5 pl-10 pr-3 text-white placeholder:text-white focus:bg-white focus:text-gray-900 focus:ring-0 focus:placeholder:text-gray-500 sm:text-sm sm:leading-6"
                             placeholder="Search"
                             type="search"
+                            value={searchParams}
+                            onChange={(e) => {
+                              setSearchParams(e.target.value);
+                            }}
                             name="search"
                           />
                         </div>
@@ -168,6 +173,10 @@ export function LoggedInLayout() {
                               placeholder="Search"
                               type="search"
                               name="search"
+                              value={searchParams}
+                              onChange={(e) => {
+                                setSearchParams(e.target.value);
+                              }}
                             />
                           </div>
                         </div>
@@ -326,6 +335,7 @@ export function LoggedInLayout() {
                         {
                           <AllPostsComponent
                             handleNavigation={handleNavigation}
+                            searchParams={searchParams}
                           />
                         }
                       </div>

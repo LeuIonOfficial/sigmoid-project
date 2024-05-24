@@ -12,7 +12,11 @@ class ListPostView(viewsets.ViewSet):
     authentication_classes = (JWTAuthentication,)
 
     def list(self, request):
+        params = request.query_params.get("search")
         queryset = Post.objects.all()
+        if params:
+            queryset = queryset.filter(title__icontains=params)
+
         serializer = PostSerializer(queryset, many=True)
         return Response(serializer.data)
 
