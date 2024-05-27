@@ -1,6 +1,6 @@
 # Sigmoid Final Project
 
-One Paragraph of project description goes here. Provide an overview of what your project does, its objectives, and how it works.
+Our blog website leverages cutting-edge artificial intelligence to generate engaging and insightful posts, offering readers fresh and unique content daily. By integrating AI, we ensure a diverse range of topics and perspectives, tailored to captivate and inform our audience.
 
 ## Getting Started
 
@@ -11,10 +11,10 @@ These instructions will get you a copy of the project up and running on your loc
 What things you need to install the software and how to install them:
 
 ```
-python==3.x.x
-Django==3.x.x
-Node.js==14.x.x
-npm==6.x.x or yarn==1.x.x
+python==4.2.11
+Django==3.9.6
+Node.js==20.0.0
+npm==10.5.x
 ```
 
 ### Installing
@@ -25,8 +25,8 @@ A step-by-step series of examples that tell you how to get a development environ
 
 ```bash
 # Clone the repository
-git clone https://yourrepo.com/yourproject.git
-cd yourproject/backend
+git clone https://github.com/LeuIonOfficial/sigmoid-project.git
+cd sigmoid-project/backend
 
 # Create a virtual environment and activate it
 python -m venv venv
@@ -46,7 +46,7 @@ python manage.py runserver
 
 ```bash
 # Navigate to the frontend directory
-cd yourproject/frontend
+cd python-sigmoid/frontend
 
 # Install dependencies
 npm install  # or 'yarn install' if you're using yarn
