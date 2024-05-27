@@ -2,8 +2,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import UserSerializer, UserLoginSerializer, UserRegisterSerializer
 from rest_framework import permissions, status
-from rest_framework_simplejwt.tokens import RefreshToken # type: ignore
-from rest_framework_simplejwt.authentication import JWTAuthentication # type: ignore
+from rest_framework_simplejwt.tokens import RefreshToken  # type: ignore
+from rest_framework_simplejwt.authentication import JWTAuthentication  # type: ignore
+from .models import AppUser
 
 
 # TODO: Add custom validation for username, email, password
@@ -56,3 +57,27 @@ class UserView(APIView):
         serializer = UserSerializer(instance=data)
         return Response({'user': serializer.data}, status=status.HTTP_200_OK)
 
+
+class AuthorView(APIView):
+    permission_classes = (permissions.IsAuthenticated, )
+    authentication_classes = (JWTAuthentication,)
+
+    @staticmethod
+    def retrieve(pk=None):
+        try:
+            author = AppUser.objects.get(pk=pk)
+            serializer = UserSerializer(author)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except UserSerializer.DoesNotExist:
+            return Response({"status": "author does not exist"}, status=status.HTTP_404_NOT_FOUND)
+
+
+class ListUsers(APIView):
+    permission_classes = (permissions.IsAuthenticated, )
+    authentication_classes = (JWTAuthentication,)
+
+    @staticmethod
+    def get(request):
+        data = AppUser.objects.all()
+        serializer = UserSerializer(data, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)

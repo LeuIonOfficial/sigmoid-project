@@ -38,7 +38,7 @@ export class AuthApi {
         email: data["email"],
         username: data["username"],
         password: data["password"],
-      },
+      }
     );
 
     if (response.status === 201) {

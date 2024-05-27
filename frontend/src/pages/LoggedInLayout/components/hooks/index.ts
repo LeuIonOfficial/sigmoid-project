@@ -35,8 +35,18 @@ export const useGetPosts = (searchParams: string) => {
     data: posts,
     isSuccess,
   } = useQuery(["posts", searchParams], query, {
-    select: (response) => {
-      return response;
+    select: (
+      response: {
+        title: string;
+        content: string;
+        author: Record<string, string>;
+        id: string;
+        date_created: string;
+      }[]
+    ) => {
+      return response.sort(
+        (a, b) => +new Date(b.date_created) - +new Date(a.date_created)
+      );
     },
     staleTime: 5000,
     keepPreviousData: true,
@@ -113,5 +123,24 @@ export const useCreatePost = () => {
     formValues,
     setFormValues,
     isAILoading,
+  };
+};
+
+export const useGetUsers = () => {
+  const query = () => Api.user.getAllUsers();
+  const {
+    isLoading,
+    data: users,
+    isSuccess,
+  } = useQuery("users", query, {
+    select: (response) => {
+      return response;
+    },
+  });
+
+  return {
+    isLoading,
+    isSuccess,
+    users,
   };
 };
