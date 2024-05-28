@@ -16,6 +16,7 @@ export function LoggedInLayout() {
   const [activeLink, setActiveLink] = useState(navigation()[0].name);
   const [selectedPost, setSelectedPost] = useState("");
   const [searchParams, setSearchParams] = useState<string>("");
+  const [selectedAuthor, setSelectedAuthor] = useState("");
 
   const handleNavigation = (link: string) => {
     setActiveLink(link);
@@ -325,7 +326,12 @@ export function LoggedInLayout() {
                     </h2>
                     <div className="overflow-hidden rounded-lg bg-white shadow">
                       <div className="p-4">
-                        {<MainWrapper link={activeLink} />}
+                        {
+                          <MainWrapper
+                            link={activeLink}
+                            setSelectedAuthor={setSelectedAuthor}
+                          />
+                        }
                       </div>
                     </div>
                   </section>
@@ -343,6 +349,7 @@ export function LoggedInLayout() {
                           <AllPostsComponent
                             handleNavigation={handleNavigation}
                             searchParams={searchParams}
+                            selectedAuthor={selectedAuthor}
                           />
                         }
                       </div>

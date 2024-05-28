@@ -1,15 +1,21 @@
 import { pagesName } from "../constants";
 import { useGetPosts } from "./hooks";
+import { Dispatch, SetStateAction } from "react";
 
 export const AllPostsComponent = ({
   handleNavigation,
   searchParams,
+  selectedAuthor,
 }: {
   handleNavigation: (link: string) => void;
   searchParams: string;
+  setSelectedAuthor?: Dispatch<SetStateAction<string>>;
+  selectedAuthor: string;
 }) => {
-  const { posts, isLoading, isSuccess, setSelectedPost } =
-    useGetPosts(searchParams);
+  const { posts, isLoading, isSuccess, setSelectedPost } = useGetPosts(
+    searchParams,
+    selectedAuthor,
+  );
 
   if (isLoading) {
     return <div>Loading...</div>;

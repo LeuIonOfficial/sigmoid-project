@@ -13,10 +13,14 @@ class ListPostView(viewsets.ViewSet):
 
     @staticmethod
     def list(request):
-        params = request.query_params.get("search")
+        search = request.query_params.get("search")
+        author = request.query_params.get("author")
         queryset = Post.objects.all()
-        if params:
-            queryset = queryset.filter(title__icontains=params)
+
+        if search:
+            queryset = queryset.filter(title__icontains=search)
+        if author:
+            queryset = queryset.filter(author=author)
 
         serializer = PostSerializer(queryset, many=True)
         return Response(serializer.data)

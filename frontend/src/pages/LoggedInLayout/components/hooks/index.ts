@@ -26,15 +26,16 @@ export const useGetPost = () => {
   };
 };
 
-export const useGetPosts = (searchParams: string) => {
-  const query = () => Api.posts.getAllPosts(searchParams);
+export const useGetPosts = (searchParams: string, selectedAuthor: string) => {
+  const query = () =>
+    Api.posts.getAllPosts({ search: searchParams, author: selectedAuthor });
   const { setSelectedPost } = useContext(SelectedPostContext);
 
   const {
     isLoading,
     data: posts,
     isSuccess,
-  } = useQuery(["posts", searchParams], query, {
+  } = useQuery(["posts", searchParams, selectedAuthor], query, {
     select: (
       response: {
         title: string;

@@ -1,8 +1,8 @@
 import $api from "../ConfigApi";
 
 export class Posts {
-  async getAllPosts(searchParams?: string) {
-    const params = searchParams ? { search: searchParams } : {};
+  async getAllPosts(searchParams?: { search?: string; author?: string }) {
+    const params = searchParams ? searchParams : {};
     const response = await $api.get(`blog/posts/`, { params });
     return response.data;
   }
