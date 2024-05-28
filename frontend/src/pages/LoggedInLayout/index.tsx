@@ -5,7 +5,7 @@ import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { AllPostsComponent } from "./components/AllPostsComponent.tsx";
 import { MainWrapper } from "./components/MainWrapper.tsx";
 import { user, userNavigation, navigation, classNames } from "./constants.ts";
-import { SelectedPostContext } from "../../store/index.tsx";
+import { SelectedPostContext } from "../../store";
 
 export function LoggedInLayout() {
   const [activeLink, setActiveLink] = useState(navigation()[0].name);
@@ -75,7 +75,7 @@ export function LoggedInLayout() {
                                     href={item.href}
                                     className={classNames(
                                       active ? "bg-gray-100" : "",
-                                      "block px-4 py-2 text-sm text-gray-700"
+                                      "block px-4 py-2 text-sm text-gray-700",
                                     )}
                                   >
                                     {item.name}
@@ -145,7 +145,7 @@ export function LoggedInLayout() {
                               key={item.name}
                               className={classNames(
                                 item.current ? "text-white" : "text-indigo-100",
-                                "rounded-md bg-white bg-opacity-0 px-3 py-2 text-sm font-medium hover:bg-opacity-10 cursor-pointer"
+                                "rounded-md bg-white bg-opacity-0 px-3 py-2 text-sm font-medium hover:bg-opacity-10 cursor-pointer",
                               )}
                               aria-current={item.current ? "page" : undefined}
                               onClick={() => handleNavigation(item.name)}
@@ -345,16 +345,6 @@ export function LoggedInLayout() {
               </div>
             </div>
           </main>
-          <footer>
-            <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-              <div className="border-t border-gray-200 py-8 text-center text-sm text-gray-500 sm:text-left">
-                <span className="block sm:inline">
-                  &copy; 2021 Your Company, Inc.
-                </span>{" "}
-                <span className="block sm:inline">All rights reserved.</span>
-              </div>
-            </div>
-          </footer>
         </div>
       </SelectedPostContext.Provider>
     </>

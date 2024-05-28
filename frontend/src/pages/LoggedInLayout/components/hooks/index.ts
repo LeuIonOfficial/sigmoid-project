@@ -42,10 +42,10 @@ export const useGetPosts = (searchParams: string) => {
         author: Record<string, string>;
         id: string;
         date_created: string;
-      }[]
+      }[],
     ) => {
       return response.sort(
-        (a, b) => +new Date(b.date_created) - +new Date(a.date_created)
+        (a, b) => +new Date(b.date_created) - +new Date(a.date_created),
       );
     },
     staleTime: 5000,
@@ -96,7 +96,7 @@ export const useCreatePost = () => {
           content: response,
         }));
       },
-    }
+    },
   );
 
   const handleAskAI = async () => {
@@ -142,5 +142,39 @@ export const useGetUsers = () => {
     isLoading,
     isSuccess,
     users,
+  };
+};
+
+export const useUpdatePost = () => {
+  const [edit, setEdit] = useState(false);
+  const [editValue, setEditValue] = useState({
+    title: "",
+    content: "",
+    id: "",
+  });
+  const queryClient = useQueryClient();
+
+  const mutation = () =>
+    Api.posts.updatePost(editValue.id, {
+      title: editValue.title,
+      content: editValue.content,
+    });
+  const { mutateAsync } = useMutation(["updatedPost"], mutation, {
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    },
+  });
+
+  const handelSaveEditedPost = () => {
+    setEdit(false);
+    mutateAsync();
+  };
+
+  return {
+    edit,
+    setEdit,
+    editValue,
+    setEditValue,
+    handelSaveEditedPost,
   };
 };

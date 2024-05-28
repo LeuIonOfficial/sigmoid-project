@@ -18,6 +18,7 @@ class PostSerializer(serializers.ModelSerializer):
 
         return post_obj
 
-    def get_author(self, obj):
+    @staticmethod
+    def get_author(obj):
         author = AppUser.objects.get(id=obj.author.id)
         return UserSerializer(author).data

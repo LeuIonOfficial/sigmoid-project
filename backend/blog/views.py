@@ -11,7 +11,8 @@ class ListPostView(viewsets.ViewSet):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     authentication_classes = (JWTAuthentication,)
 
-    def list(self, request):
+    @staticmethod
+    def list(request):
         params = request.query_params.get("search")
         queryset = Post.objects.all()
         if params:
@@ -25,7 +26,8 @@ class RetrievePostView(viewsets.ViewSet):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     authentication_classes = (JWTAuthentication,)
 
-    def retrieve(self, request, pk=None):
+    @staticmethod
+    def retrieve(request, pk=None):
         try:
             post = Post.objects.get(pk=pk)
             serializer = PostSerializer(post)
@@ -38,7 +40,8 @@ class CreatePostView(viewsets.ViewSet):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     authentication_classes = (JWTAuthentication,)
 
-    def create(self, request):
+    @staticmethod
+    def create(request):
         data = request.data
         user = request.user
         data.update({'author': user.id})
@@ -53,7 +56,8 @@ class UpdatePostView(viewsets.ViewSet):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     authentication_classes = (JWTAuthentication,)
 
-    def update(self, request, pk=None):
+    @staticmethod
+    def update(request, pk=None):
         try:
             post = Post.objects.get(pk=pk)
             serializer = PostSerializer(post, data=request.data, partial=True)
@@ -69,7 +73,8 @@ class DeletePostView(viewsets.ViewSet):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     authentication_classes = (JWTAuthentication,)
 
-    def destroy(self, request, pk=None):
+    @staticmethod
+    def destroy(request, pk=None):
         try:
             post = Post.objects.get(pk=pk)
             post.delete()
@@ -82,7 +87,8 @@ class AskAIView(viewsets.ViewSet):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     authentication_classes = (JWTAuthentication,)
 
-    def create(self, request):
+    @staticmethod
+    def create(request):
         data = request.data
         prompt = {
             "role": "user",

@@ -2,8 +2,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import UserSerializer, UserLoginSerializer, UserRegisterSerializer
 from rest_framework import permissions, status
-from rest_framework_simplejwt.tokens import RefreshToken  # type: ignore
-from rest_framework_simplejwt.authentication import JWTAuthentication  # type: ignore
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from .models import AppUser
 
 

@@ -3,8 +3,11 @@ import { createContext } from "react";
 
 export const UserContext = createContext<
   | {
-      email: string;
-      username: string;
+      user: {
+        email: string;
+        username: string;
+        id: string;
+      };
     }
   | undefined
 >(undefined);
