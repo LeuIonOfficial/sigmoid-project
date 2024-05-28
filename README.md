@@ -6,30 +6,33 @@ Our blog website leverages cutting-edge artificial intelligence to generate enga
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-### Prerequisites
-
-What things you need to install the software and how to install them:
-
-```
-python==4.2.11
-Django==3.9.6
-Node.js==20.0.0
-npm==10.5.x
+### Install Prerequisites
+#### Make sure that you have installed [Docker Engine](https://docs.docker.com/engine/install/):
+```bash
+$ docker -v
 ```
 
-### Installing
+#### Make sure that you have installed [Node](https://nodejs.org/en/download/package-manager):
+```bash
+$ node -v
+```
+
+#### Make sure that you have installed [Python](https://www.python.org/downloads/):
+```bash
+$ python -v
+```
 
 A step-by-step series of examples that tell you how to get a development environment running.
 
-### Setting up the Backend (Django)
+### Installation and prepare infrastructure:
 
 ```bash
 # Clone the repository
-git clone https://github.com/LeuIonOfficial/sigmoid-project.git
-cd sigmoid-project/backend
+$ git clone https://github.com/LeuIonOfficial/sigmoid-project.git
+$ cd sigmoid-project/backend
 
 # Start the development server and run docker image
-docker-compose up
+$ docker-compose up
 # Development server should starting at http://0.0.0.0:8000/
 ```
 
@@ -37,13 +40,13 @@ docker-compose up
 
 ```bash
 # Navigate to the frontend directory
-cd python-sigmoid/frontend
+$ cd python-sigmoid/frontend
 
 # Install dependencies
-npm install  # or 'yarn install' if you're using yarn
+$ npm install  # or 'yarn install' if you're using yarn
 
 # Start the development server
-npm start  # or 'yarn start' if you're using yarn
+$ npm start  # or 'yarn start' if you're using yarn
 
 # Development server should starting at http://localhost:5173/
 ```
