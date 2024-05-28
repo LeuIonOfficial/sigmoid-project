@@ -28,18 +28,9 @@ A step-by-step series of examples that tell you how to get a development environ
 git clone https://github.com/LeuIonOfficial/sigmoid-project.git
 cd sigmoid-project/backend
 
-# Create a virtual environment and activate it
-python -m venv venv
-source venv/bin/activate  # For Windows use `venv\Scripts\activate`
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Run migrations
-python manage.py migrate
-
-# Start the development server
-python manage.py runserver
+# Start the development server and run docker image
+docker-compose up
+# Development server should starting at http://0.0.0.0:8000/
 ```
 
 ### Setting up the Frontend (React)
@@ -53,4 +44,6 @@ npm install  # or 'yarn install' if you're using yarn
 
 # Start the development server
 npm start  # or 'yarn start' if you're using yarn
+
+# Development server should starting at http://localhost:5173/
 ```
