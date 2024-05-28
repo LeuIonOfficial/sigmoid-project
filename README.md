@@ -47,3 +47,14 @@ npm start  # or 'yarn start' if you're using yarn
 
 # Development server should starting at http://localhost:5173/
 ```
+
+### How to use this app
+1. Firstly you shoud register an account: http://localhost:5173/register
+2. Then you can login with your user: http://localhost:5173/login
+3. You will be redirected at the main page: http://localhost:5173/u/dashboard
+4. On dashboard you have 3 [Post, Authors and Create Post] tabs and the right sidebar with all posts
+5. On the [Post] tab you can edit, delete and read the post
+6. On the [Authors] tab you can see all authors, and if you click on one of them on the right sidebar you will see all his posts
+7. On the [Create Post] tab you can create a post. Also here is the feature with integrated AI. You can ask ai for a content for your article. When you will recieve response from the AI it will autocomplete the description of the article.
+
+### Thank you and have a nice day!
