@@ -1,5 +1,6 @@
 import { useHandleData } from "./utils.ts";
 import { useNavigate } from "react-router-dom";
+import routes from "../../routes";
 
 export function LoginPage() {
   const { handleSubmitForm } = useHandleData();
@@ -81,8 +82,8 @@ export function LoginPage() {
           <p className="mt-10 text-center text-sm text-gray-500">
             Not a user?{" "}
             <a
-              onClick={() => navigate("/register")}
-              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+              onClick={() => navigate(routes.register)}
+              className="font-semibold cursor-pointer leading-6 text-indigo-600 hover:text-indigo-500"
             >
               Register you account
             </a>

@@ -1,7 +1,10 @@
 import { useHandleData } from "./utils.ts";
+import { useNavigate } from "react-router-dom";
+import routes from "../../routes";
 
 export function RegisterPage() {
   const { handleSubmitForm } = useHandleData();
+  const navigate = useNavigate();
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -65,10 +68,10 @@ export function RegisterPage() {
                 </label>
                 <div className="text-sm">
                   <a
-                    href="#"
-                    className="font-semibold text-indigo-600 hover:text-indigo-500"
+                    onClick={() => navigate(routes.login)}
+                    className="font-semibold cursor-pointer text-indigo-600 hover:text-indigo-500"
                   >
-                    Forgot password?
+                    Already have an account
                   </a>
                 </div>
               </div>

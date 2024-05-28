@@ -1,6 +1,9 @@
 import { AuthorsPage } from "./components/AuthorsPage";
 import { CreatePostPage } from "./components/CreatePostPage";
 import { PostPage } from "./components/PostPage";
+import { Api } from "../../requests";
+import { useNavigate } from "react-router-dom";
+import routes from "../../routes";
 
 export const user = {
   name: "Tom Cook",
@@ -21,11 +24,21 @@ export const navigation = (current?: string) => {
     { name: "Create post", current: current === pagesName.create_post },
   ];
 };
-export const userNavigation = [
-  { name: "Your Profile", href: "#" },
-  { name: "Settings", href: "#" },
-  { name: "Sign out", href: "#" },
-];
+export const useUserNavigation = () => {
+  const navigate = useNavigate();
+  return [
+    { name: "Your Profile", href: "#", onCLick: () => {} },
+    { name: "Settings", href: "#", onCLick: () => {} },
+    {
+      name: "Sign out",
+      href: "#",
+      onCLick: async () => {
+        await Api.auth.logout();
+        navigate(routes.login);
+      },
+    },
+  ];
+};
 
 export function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");

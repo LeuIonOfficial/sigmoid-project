@@ -4,7 +4,12 @@ import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { AllPostsComponent } from "./components/AllPostsComponent.tsx";
 import { MainWrapper } from "./components/MainWrapper.tsx";
-import { user, userNavigation, navigation, classNames } from "./constants.ts";
+import {
+  user,
+  useUserNavigation,
+  navigation,
+  classNames,
+} from "./constants.ts";
 import { SelectedPostContext } from "../../store";
 
 export function LoggedInLayout() {
@@ -15,7 +20,7 @@ export function LoggedInLayout() {
   const handleNavigation = (link: string) => {
     setActiveLink(link);
   };
-
+  const userNavigation = useUserNavigation();
   return (
     <>
       <SelectedPostContext.Provider value={{ selectedPost, setSelectedPost }}>
@@ -73,6 +78,7 @@ export function LoggedInLayout() {
                                 {({ active }) => (
                                   <a
                                     href={item.href}
+                                    onClick={item.onCLick}
                                     className={classNames(
                                       active ? "bg-gray-100" : "",
                                       "block px-4 py-2 text-sm text-gray-700",
@@ -290,6 +296,7 @@ export function LoggedInLayout() {
                                 <a
                                   key={item.name}
                                   href={item.href}
+                                  onClick={item.onCLick}
                                   className="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800"
                                 >
                                   {item.name}

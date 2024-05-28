@@ -1,14 +1,11 @@
 import { useDeletePost, useGetPost, useUpdatePost } from "./hooks";
-import { useContext, useEffect } from "react";
-import { UserContext } from "../../../store";
+import { useEffect } from "react";
 
 export const PostPage = () => {
   const { post, isLoading, setSelectedPost } = useGetPost();
   const { deletePost } = useDeletePost();
   const { edit, setEdit, setEditValue, handelSaveEditedPost, editValue } =
     useUpdatePost();
-
-  const user = useContext(UserContext);
 
   useEffect(() => {
     setEditValue(post);
@@ -39,12 +36,12 @@ export const PostPage = () => {
               }
             ></input>
             <div className="flex gap-3">
-              {user?.user.id === post.author.id && !edit && (
+              {!edit && (
                 <button onClick={() => setEdit(true)} type="button">
                   Edit
                 </button>
               )}
-              {user?.user.id === post.author.id && edit && (
+              {edit && (
                 <>
                   <button onClick={handelSaveEditedPost} type="button">
                     Save

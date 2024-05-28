@@ -59,7 +59,12 @@ class UpdatePostView(viewsets.ViewSet):
     @staticmethod
     def update(request, pk=None):
         try:
+            user = request.user
             post = Post.objects.get(pk=pk)
+
+            if user.id != post.author.id:
+                return Response({"status": "not allowed"}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
             serializer = PostSerializer(post, data=request.data, partial=True)
             if serializer.is_valid():
                 serializer.save()
@@ -76,7 +81,12 @@ class DeletePostView(viewsets.ViewSet):
     @staticmethod
     def destroy(request, pk=None):
         try:
+            user = request.user
             post = Post.objects.get(pk=pk)
+
+            if user.id != post.author.id:
+                return Response({"status": "not allowed"}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
             post.delete()
             return Response({"status": "deleted"}, status=status.HTTP_200_OK)
         except Post.DoesNotExist:
